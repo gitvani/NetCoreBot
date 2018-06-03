@@ -13,17 +13,10 @@ namespace ChatBotWithCSharp
         {
             if (context.Activity.Type is ActivityTypes.Message)
             {
-                var activity = MessageFactory.Attachment(
-                  new Attachment()
-                  {
-                      ContentUrl = "https://i.pinimg.com/originals/cb/eb/46/cbeb46a7bcde12bea4ff0e7f06b70a03.jpg",
-                      ContentType = "image/png"
-                  });
-                activity.Summary = "This message contains a linked image.";
-
-                // Send the activity as a reply to the user.
-                await context.SendActivity(activity);
-
+                string message = context.Activity.Text;
+                NLP nlp = new NLP();
+                string reply = nlp.GetReply(message);
+                await context.SendActivity(reply);
 
             }
         }
